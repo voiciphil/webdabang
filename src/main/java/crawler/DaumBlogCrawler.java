@@ -1,10 +1,12 @@
+package crawler;
+
 import java.io.IOException;
 import org.jsoup.*;
 import org.jsoup.nodes.*;
 import org.jsoup.select.*;
 import java.util.*;
 
-class DaumBlogCrawler {
+public class DaumBlogCrawler {
 
     String URL1;
     String URL2;

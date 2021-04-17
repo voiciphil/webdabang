@@ -1,3 +1,7 @@
+import crawler.DaumBlogCrawler;
+import crawler.DaumNewsCrawler;
+import crawler.NaverBlogCrawler;
+import crawler.NaverNewsCrawler;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
