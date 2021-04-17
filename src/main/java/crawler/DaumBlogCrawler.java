@@ -9,7 +9,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class DaumBlogCrawler {
+public class DaumBlogCrawler implements Crawler {
+
+    private static DaumBlogCrawler instance;
 
     private static final String URL1 = "https://search.daum.net/search?w=blog&nil_search=btn&DA=PGD&enc=utf8&q=";
     private static final String URL2 = "&page=";
@@ -17,27 +19,41 @@ public class DaumBlogCrawler {
     private static final String SELECTOR = "#blogColl .wrap_tit.mg_tit a";
     private static final int PAGES = 3;
 
-    private final String searchKeyword;
+    private String searchKeyword;
 
-    public DaumBlogCrawler(String searchKeyword) {
+    static public DaumBlogCrawler getInstance(String searchKeyword) {
+        if (instance == null) {
+            instance = new DaumBlogCrawler(searchKeyword);
+            return instance;
+        }
+
+        instance.changeSearchKeyword(searchKeyword);
+        return instance;
+    }
+
+    private DaumBlogCrawler(String searchKeyword) {
         this.searchKeyword = searchKeyword;
     }
 
-    public void run(Vector vec1, Vector vec2) {
+    private void changeSearchKeyword(String searchKeyword) {
+        this.searchKeyword = searchKeyword;
+    }
+
+    @Override
+    public Vector<Website> run() {
+        Vector<Website> result = new Vector<>();
         try {
-            Document doc;
-            Elements elem;
             for (int page = 1; page <= PAGES; page++) {
                 sleep(500);
-                doc = Jsoup.connect(URL1 + searchKeyword + URL2 + page + URL3).get();
-                elem = doc.select(SELECTOR);
-                for (Element a : elem) {
-                    vec1.addElement(a.text());
-                    vec2.addElement(a.attr("href"));
+                Document document = Jsoup.connect(URL1 + searchKeyword + URL2 + page + URL3).get();
+                Elements elements = document.select(SELECTOR);
+                for (Element element : elements) {
+                    result.add(Website.of(element.text(), element.attr("href")));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return result;
     }
 }
