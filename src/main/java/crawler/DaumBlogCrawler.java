@@ -1,5 +1,7 @@
 package crawler;
 
+import static util.Util.sleep;
+
 import java.io.IOException;
 import org.jsoup.*;
 import org.jsoup.nodes.*;
@@ -36,14 +38,6 @@ public class DaumBlogCrawler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void sleep(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }
