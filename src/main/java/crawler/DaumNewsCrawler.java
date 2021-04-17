@@ -3,10 +3,11 @@ package crawler;
 import static util.Util.sleep;
 
 import java.io.IOException;
-import org.jsoup.*;
-import org.jsoup.nodes.*;
-import org.jsoup.select.*;
-import java.util.*;
+import java.util.Vector;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class DaumNewsCrawler {
 

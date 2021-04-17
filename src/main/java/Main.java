@@ -2,11 +2,20 @@ import crawler.DaumBlogCrawler;
 import crawler.DaumNewsCrawler;
 import crawler.NaverBlogCrawler;
 import crawler.NaverNewsCrawler;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.net.*;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URI;
+import java.util.Vector;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Main {
 
