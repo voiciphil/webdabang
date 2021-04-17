@@ -22,8 +22,8 @@ public class Main {
     JFrame frame;
     JPanel panel;
     JTextField text_box;
-    JList search_list_news, search_list_blog;
-    JButton search_button, link_button_blog, link_button_news;
+    JList searchListNews, searchListBlog;
+    JButton searchButton, linkButtonBlog, linkButtonNews;
     JLabel logo;
     JComboBox combo;
     Vector vTitle_blog, vTitle_news;
@@ -35,27 +35,27 @@ public class Main {
 
         panel = new JPanel();
 
-        link_button_blog = new JButton(new ImageIcon("src/main/resources/blog.png"));
-        link_button_blog.addActionListener(new ConnectListenerBlog());
-        link_button_blog.setBorderPainted(false);
+        linkButtonBlog = new JButton(new ImageIcon("src/main/resources/blog.png"));
+        linkButtonBlog.addActionListener(new ConnectListenerBlog());
+        linkButtonBlog.setBorderPainted(false);
 
-        link_button_news = new JButton(new ImageIcon("src/main/resources/news.png"));
-        link_button_news.addActionListener(new ConnectListenerNews());
-        link_button_news.setBorderPainted(false);
+        linkButtonNews = new JButton(new ImageIcon("src/main/resources/news.png"));
+        linkButtonNews.addActionListener(new ConnectListenerNews());
+        linkButtonNews.setBorderPainted(false);
 
-        search_button = new JButton(new ImageIcon("src/main/resources/search.png"));
-        search_button.addActionListener(new SearchListener());
-        search_button.setBorderPainted(false);
+        searchButton = new JButton(new ImageIcon("src/main/resources/search.png"));
+        searchButton.addActionListener(new SearchListener());
+        searchButton.setBorderPainted(false);
 
         text_box = new JTextField(50);
         text_box.addActionListener(new EnterListener());
         text_box.setBackground(new Color(255, 255, 233));
 
-        search_list_blog = new JList();
-        search_list_blog.setBackground(new Color(255, 255, 233));
+        searchListBlog = new JList();
+        searchListBlog.setBackground(new Color(255, 255, 233));
 
-        search_list_news = new JList();
-        search_list_news.setBackground(new Color(255, 255, 233));
+        searchListNews = new JList();
+        searchListNews.setBackground(new Color(255, 255, 233));
 
         combo = new JComboBox<String>(menu);
 
@@ -63,21 +63,21 @@ public class Main {
 
         panel.setBackground(new Color(30, 52, 74));
         panel.setLayout(null);
-        panel.add(link_button_blog);
-        panel.add(link_button_news);
-        panel.add(search_button);
+        panel.add(linkButtonBlog);
+        panel.add(linkButtonNews);
+        panel.add(searchButton);
         panel.add(text_box);
-        panel.add(search_list_blog);
-        panel.add(search_list_news);
+        panel.add(searchListBlog);
+        panel.add(searchListNews);
         panel.add(combo);
         panel.add(logo);
 
         text_box.setBounds(120, 30, 350, 50);
-        search_button.setBounds(480, 30, 82, 58);
-        link_button_blog.setBounds(225, 715, 90, 57);
-        link_button_news.setBounds(815, 715, 80, 57);
-        search_list_blog.setBounds(20, 100, 520, 600);
-        search_list_news.setBounds(600, 100, 520, 600);
+        searchButton.setBounds(480, 30, 82, 58);
+        linkButtonBlog.setBounds(225, 715, 90, 57);
+        linkButtonNews.setBounds(815, 715, 80, 57);
+        searchListBlog.setBounds(20, 100, 520, 600);
+        searchListNews.setBounds(600, 100, 520, 600);
         combo.setBounds(20, 30, 100, 50);
         logo.setBounds(600, 1, 520, 139);
 
@@ -107,19 +107,19 @@ public class Main {
             if (site == 0) {
                 NaverBlogCrawler bc = new NaverBlogCrawler(search);
                 bc.run(vTitle_blog, vLink_blog);
-                search_list_blog.setListData(vTitle_blog);
+                searchListBlog.setListData(vTitle_blog);
 
                 NaverNewsCrawler nc = new NaverNewsCrawler(search);
                 nc.run(vTitle_news, vLink_news);
-                search_list_news.setListData(vTitle_news);
+                searchListNews.setListData(vTitle_news);
             } else if (site == 1) {
                 DaumBlogCrawler bc = new DaumBlogCrawler(search);
                 bc.run(vTitle_blog, vLink_blog);
-                search_list_blog.setListData(vTitle_blog);
+                searchListBlog.setListData(vTitle_blog);
 
                 DaumNewsCrawler nc = new DaumNewsCrawler(search);
                 nc.run(vTitle_news, vLink_news);
-                search_list_news.setListData(vTitle_news);
+                searchListNews.setListData(vTitle_news);
             }
         }
     }
@@ -127,7 +127,7 @@ public class Main {
     class ConnectListenerBlog implements ActionListener {
 
         public void actionPerformed(ActionEvent event) {
-            int index = search_list_blog.getSelectedIndex();
+            int index = searchListBlog.getSelectedIndex();
             String uri = vLink_blog.get(index).toString();
             try {
                 Desktop.getDesktop().browse(new URI(uri));
@@ -140,7 +140,7 @@ public class Main {
     class ConnectListenerNews implements ActionListener {
 
         public void actionPerformed(ActionEvent event) {
-            int index = search_list_news.getSelectedIndex();
+            int index = searchListNews.getSelectedIndex();
             String uri = vLink_news.get(index).toString();
             try {
                 Desktop.getDesktop().browse(new URI(uri));
