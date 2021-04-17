@@ -92,19 +92,19 @@ public class Main {
             vTitle_news = new Vector();
 
             if (site == 0) {
-                NaverBlogCrawl bc = new NaverBlogCrawl(search);
+                NaverBlogCrawler bc = new NaverBlogCrawler(search);
                 bc.run(vTitle_blog, vLink_blog);
                 search_list_blog.setListData(vTitle_blog);
 
-                NaverNewsCrawl nc = new NaverNewsCrawl(search);
+                NaverNewsCrawler nc = new NaverNewsCrawler(search);
                 nc.run(vTitle_news, vLink_news);
                 search_list_news.setListData(vTitle_news);
             } else if (site == 1) {
-                DaumBlogCrawl bc = new DaumBlogCrawl(search);
+                DaumBlogCrawler bc = new DaumBlogCrawler(search);
                 bc.run(vTitle_blog, vLink_blog);
                 search_list_blog.setListData(vTitle_blog);
 
-                DaumNewsCrawl nc = new DaumNewsCrawl(search);
+                DaumNewsCrawler nc = new DaumNewsCrawler(search);
                 nc.run(vTitle_news, vLink_news);
                 search_list_news.setListData(vTitle_news);
             }

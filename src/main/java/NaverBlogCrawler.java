@@ -4,7 +4,7 @@ import org.jsoup.nodes.*;
 import org.jsoup.select.*;
 import java.util.*;
 
-class DaumNewsCrawl {
+class NaverBlogCrawler {
 
     String URL1;
     String URL2;
@@ -12,21 +12,21 @@ class DaumNewsCrawl {
     int page = 1;
     int pages = 3;
 
-    public DaumNewsCrawl(String s) {
+    public NaverBlogCrawler(String s) {
         search = s;
     }
 
     public void run(Vector vec1, Vector vec2) {
-        URL1 = "https://search.daum.net/search?w=news&nil_search=btn&DA=PGD&enc=utf8&cluster=y&cluster_page=1&q=";
-        URL2 = "&p=";
+        URL1 = "https://search.naver.com/search.naver?date_from=&date_option=0&date_to=&dup_remove=1&nso=&post_blogurl=&post_blogurl_without=&query=";
+        URL2 = "&sm=tab_pge&srchby=all&st=sim&where=post&start=";
 
         try {
             Document doc;
             Elements elem;
-            for (int i = 0; i < pages; i++, page++) {
+            for (int i = 0; i < pages; i++, page += 10) {
                 sleep(500);
                 doc = Jsoup.connect(URL1 + search + URL2 + page).get();
-                elem = doc.select("#clusterResultUL .wrap_tit.mg_tit a");
+                elem = doc.select(".sh_blog_top dl dt a");
                 for (Element a : elem) {
                     vec1.addElement(a.text());
                     vec2.addElement(a.attr("href"));

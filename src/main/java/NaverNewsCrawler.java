@@ -4,7 +4,7 @@ import org.jsoup.nodes.*;
 import org.jsoup.select.*;
 import java.util.*;
 
-class NaverNewsCrawl {
+class NaverNewsCrawler {
 
     String URL1;
     String URL2;
@@ -13,7 +13,7 @@ class NaverNewsCrawl {
     int page = 1;
     int pages = 3;
 
-    public NaverNewsCrawl(String s) {
+    public NaverNewsCrawler(String s) {
         search = s;
     }
 
