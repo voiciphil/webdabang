@@ -26,15 +26,15 @@ public class Main {
 
         panel = new JPanel();
 
-        link_button_blog = new JButton(new ImageIcon("./img/blog.png"));
+        link_button_blog = new JButton(new ImageIcon("src/main/resources/blog.png"));
         link_button_blog.addActionListener(new ConnectListenerBlog());
         link_button_blog.setBorderPainted(false);
 
-        link_button_news = new JButton(new ImageIcon("./img/news.png"));
+        link_button_news = new JButton(new ImageIcon("src/main/resources/news.png"));
         link_button_news.addActionListener(new ConnectListenerNews());
         link_button_news.setBorderPainted(false);
 
-        search_button = new JButton(new ImageIcon("./img/search.png"));
+        search_button = new JButton(new ImageIcon("src/main/resources/search.png"));
         search_button.addActionListener(new SearchListener());
         search_button.setBorderPainted(false);
 
@@ -50,7 +50,7 @@ public class Main {
 
         combo = new JComboBox<String>(menu);
 
-        logo = new JLabel(new ImageIcon("./img/logo.png"));
+        logo = new JLabel(new ImageIcon("src/main/resources/logo.png"));
 
         panel.setBackground(new Color(30, 52, 74));
         panel.setLayout(null);

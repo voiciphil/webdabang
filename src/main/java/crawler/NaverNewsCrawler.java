@@ -23,7 +23,6 @@ public class NaverNewsCrawler {
     }
 
     public void run(Vector vec1, Vector vec2) {
-
         try {
             Document doc;
             Elements elem;
