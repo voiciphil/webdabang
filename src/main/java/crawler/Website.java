@@ -13,4 +13,9 @@ public class Website {
         this.title = title;
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
