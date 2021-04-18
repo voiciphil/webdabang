@@ -33,6 +33,11 @@ public class Gui {
     private static final String SEARCH_BUTTON_ICON = "src/main/resources/search.png";
     private static final String LOGO_IMAGE = "src/main/resources/logo.png";
 
+    private static final int SEARCH_BAR_INDEX = 3;
+    private static final int BLOG_LIST_INDEX = 4;
+    private static final int NEWS_LIST_INDEX = 5;
+    private static final int COMBO_BOX_INDEX = 6;
+
     private List<JComponent> components;
     private Vector<Website> blogWebsites;
     private Vector<Website> newsWebsites;
@@ -75,6 +80,40 @@ public class Gui {
         return frame;
     }
 
+    private String getSearchKeyword() {
+        JTextField searchBar = (JTextField) components.get(SEARCH_BAR_INDEX);
+        return searchBar.getText();
+    }
+
+    private int getSelectedComboBoxIndex() {
+        JComboBox<String> comboBox = (JComboBox<String>) components.get(COMBO_BOX_INDEX);
+        return comboBox.getSelectedIndex();
+    }
+
+    private void setBlogData(Vector<Website> data) {
+        JList<Website> blogSearchResults = (JList<Website>) components.get(BLOG_LIST_INDEX);
+        blogSearchResults.setListData(data);
+        blogWebsites = data;
+    }
+
+    private void setNewsData(Vector<Website> data) {
+        JList<Website> newsSearchResults = (JList<Website>) components.get(NEWS_LIST_INDEX);
+        newsSearchResults.setListData(data);
+        newsWebsites = data;
+    }
+
+    private void openBlog() {
+        JList<Website> blogSearchResults = (JList<Website>) components.get(BLOG_LIST_INDEX);
+        int index = blogSearchResults.getSelectedIndex();
+        blogWebsites.get(index).open();
+    }
+
+    private void openNews() {
+        JList<Website> blogSearchResults = (JList<Website>) components.get(NEWS_LIST_INDEX);
+        int index = blogSearchResults.getSelectedIndex();
+        newsWebsites.get(index).open();
+    }
+
     class SearchListener implements ActionListener {
 
         private static final int NAVER = 0;
@@ -82,11 +121,8 @@ public class Gui {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            JTextField searchBar = (JTextField) components.get(3);
-            JComboBox<String> comboBox = (JComboBox<String>) components.get(6);
-
-            String search = searchBar.getText();
-            int site = comboBox.getSelectedIndex();
+            String search = getSearchKeyword();
+            int site = getSelectedComboBoxIndex();
 
             if (site == NAVER) {
                 crawl(NaverBlogCrawler.getInstance(search), NaverNewsCrawler.getInstance(search));
@@ -96,13 +132,8 @@ public class Gui {
         }
 
         private void crawl(Crawler blogCrawler, Crawler newsCrawler) {
-            JList<Website> blogSearchResults = (JList<Website>) components.get(4);
-            blogWebsites = blogCrawler.run();
-            blogSearchResults.setListData(blogWebsites);
-
-            JList<Website> newsSearchResults = (JList<Website>) components.get(5);
-            newsWebsites = newsCrawler.run();
-            newsSearchResults.setListData(newsWebsites);
+            setBlogData(blogCrawler.run());
+            setNewsData(newsCrawler.run());
         }
     }
 
@@ -110,9 +141,7 @@ public class Gui {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            JList<Website> blogSearchResults = (JList<Website>) components.get(4);
-            int index = blogSearchResults.getSelectedIndex();
-            blogWebsites.get(index).open();
+            openBlog();
         }
     }
 
@@ -120,9 +149,7 @@ public class Gui {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            JList<Website> newsSearchResults = (JList<Website>) components.get(5);
-            int index = newsSearchResults.getSelectedIndex();
-            newsWebsites.get(index).open();
+            openNews();
         }
     }
 
