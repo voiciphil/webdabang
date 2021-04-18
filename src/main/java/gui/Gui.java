@@ -1,5 +1,11 @@
 package gui;
 
+import static gui.ComponentFactory.createButton;
+import static gui.ComponentFactory.createComboBox;
+import static gui.ComponentFactory.createList;
+import static gui.ComponentFactory.createLogo;
+import static gui.ComponentFactory.createSearchBar;
+
 import crawler.Crawler;
 import crawler.DaumBlogCrawler;
 import crawler.DaumNewsCrawler;
@@ -13,11 +19,9 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -34,59 +38,23 @@ public class Gui {
     private Vector<Website> newsWebsites;
 
     public void run() {
-        createComponents();
+        components = createComponents();
         JPanel panel = createPanel();
         JFrame frame = createFrame(panel);
         frame.setVisible(true);
     }
 
-    private void createComponents() {
-        components = List.of(
+    private List<JComponent> createComponents() {
+        return List.of(
             createButton(new ImageIcon(BLOG_BUTTON_ICON), new ConnectListenerBlog(), new Rectangle(225, 715, 90, 57)),
             createButton(new ImageIcon(NEWS_BUTTON_ICON), new ConnectListenerNews(), new Rectangle(815, 715, 80, 57)),
             createButton(new ImageIcon(SEARCH_BUTTON_ICON), new SearchListener(), new Rectangle(480, 30, 82, 58)),
-            createSearchBar(new Rectangle(120, 30, 350, 50)),
+            createSearchBar(new EnterListener(), new Rectangle(120, 30, 350, 50)),
             createList(new Rectangle(20, 100, 520, 600)),
             createList(new Rectangle(600, 100, 520, 600)),
             createComboBox(new Rectangle(20, 30, 100, 50)),
-            createLogo(new Rectangle(600, 1, 520, 139))
+            createLogo(new ImageIcon(LOGO_IMAGE), new Rectangle(600, 1, 520, 139))
         );
-    }
-
-    private JButton createButton(ImageIcon icon, ActionListener actionListener, Rectangle bound) {
-        JButton button = new JButton(icon);
-        button.addActionListener(actionListener);
-        button.setBorderPainted(false);
-        button.setBounds(bound);
-        return button;
-    }
-
-    private JTextField createSearchBar(Rectangle bound) {
-        JTextField searchBar = new JTextField(50);
-        searchBar.addActionListener(new EnterListener());
-        searchBar.setBackground(new Color(255, 255, 233));
-        searchBar.setBounds(bound);
-        return searchBar;
-    }
-
-    private JList<Website> createList(Rectangle bound) {
-        JList<Website> list = new JList<>();
-        list.setBackground(new Color(255, 255, 233));
-        list.setBounds(bound);
-        return list;
-    }
-
-    private JComboBox<String> createComboBox(Rectangle bound) {
-        String[] menu = {"Naver", "Daum"};
-        JComboBox<String> comboBox = new JComboBox<>(menu);
-        comboBox.setBounds(bound);
-        return comboBox;
-    }
-
-    private JLabel createLogo(Rectangle bound) {
-        JLabel label = new JLabel(new ImageIcon(LOGO_IMAGE));
-        label.setBounds(bound);
-        return label;
     }
 
     private JPanel createPanel() {
