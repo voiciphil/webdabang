@@ -108,6 +108,7 @@ public class Gui {
 
     class ConnectListenerBlog implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent event) {
             JList<Website> blogSearchResults = (JList<Website>) components.get(4);
             int index = blogSearchResults.getSelectedIndex();
@@ -117,6 +118,7 @@ public class Gui {
 
     class ConnectListenerNews implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent event) {
             JList<Website> newsSearchResults = (JList<Website>) components.get(5);
             int index = newsSearchResults.getSelectedIndex();
@@ -126,6 +128,7 @@ public class Gui {
 
     class EnterListener implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent event) {
             new SearchListener().actionPerformed(event);
         }
