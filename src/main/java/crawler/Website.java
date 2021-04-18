@@ -1,5 +1,8 @@
 package crawler;
 
+import java.awt.Desktop;
+import java.net.URI;
+
 public class Website {
 
     private final String title;
@@ -12,6 +15,14 @@ public class Website {
     private Website(String title, String link) {
         this.title = title;
         this.link = link;
+    }
+
+    public void open() {
+        try {
+            Desktop.getDesktop().browse(new URI(link));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

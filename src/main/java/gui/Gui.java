@@ -7,11 +7,9 @@ import crawler.NaverBlogCrawler;
 import crawler.NaverNewsCrawler;
 import crawler.Website;
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URI;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.ImageIcon;
@@ -145,12 +143,7 @@ public class Gui {
         public void actionPerformed(ActionEvent event) {
             JList<Website> blogSearchResults = (JList<Website>) components.get(4);
             int index = blogSearchResults.getSelectedIndex();
-            String uri = blogWebsites.get(index).toString();
-            try {
-                Desktop.getDesktop().browse(new URI(uri));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            blogWebsites.get(index).open();
         }
     }
 
@@ -159,12 +152,7 @@ public class Gui {
         public void actionPerformed(ActionEvent event) {
             JList<Website> newsSearchResults = (JList<Website>) components.get(5);
             int index = newsSearchResults.getSelectedIndex();
-            String uri = newsWebsites.get(index).toString();
-            try {
-                Desktop.getDesktop().browse(new URI(uri));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            newsWebsites.get(index).open();
         }
     }
 
