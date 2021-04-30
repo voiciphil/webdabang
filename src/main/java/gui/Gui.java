@@ -9,6 +9,10 @@ import static gui.ComponentFactory.createPanel;
 import static gui.ComponentFactory.createSearchBar;
 
 import crawler.Website;
+import gui.actionlistener.BlogConnectListener;
+import gui.actionlistener.EnterListener;
+import gui.actionlistener.NewsConnectListener;
+import gui.actionlistener.SearchListener;
 import java.awt.Rectangle;
 import java.util.List;
 import java.util.Vector;
@@ -50,35 +54,35 @@ public class Gui {
         );
     }
 
-    String getSearchKeyword() {
+    public String getSearchKeyword() {
         JTextField searchBar = (JTextField) components.get(SEARCH_BAR_INDEX);
         return searchBar.getText();
     }
 
-    int getSelectedComboBoxIndex() {
+    public int getSelectedComboBoxIndex() {
         JComboBox<String> comboBox = (JComboBox<String>) components.get(COMBO_BOX_INDEX);
         return comboBox.getSelectedIndex();
     }
 
-    void setBlogData(Vector<Website> data) {
+    public void setBlogData(Vector<Website> data) {
         JList<Website> blogSearchResults = (JList<Website>) components.get(BLOG_LIST_INDEX);
         blogSearchResults.setListData(data);
         blogWebsites = data;
     }
 
-    void setNewsData(Vector<Website> data) {
+    public void setNewsData(Vector<Website> data) {
         JList<Website> newsSearchResults = (JList<Website>) components.get(NEWS_LIST_INDEX);
         newsSearchResults.setListData(data);
         newsWebsites = data;
     }
 
-    void openBlog() {
+    public void openBlog() {
         JList<Website> blogSearchResults = (JList<Website>) components.get(BLOG_LIST_INDEX);
         int index = blogSearchResults.getSelectedIndex();
         blogWebsites.get(index).open();
     }
 
-    void openNews() {
+    public void openNews() {
         JList<Website> blogSearchResults = (JList<Website>) components.get(NEWS_LIST_INDEX);
         int index = blogSearchResults.getSelectedIndex();
         newsWebsites.get(index).open();

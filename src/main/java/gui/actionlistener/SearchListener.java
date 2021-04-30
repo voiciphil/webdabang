@@ -1,10 +1,11 @@
-package gui;
+package gui.actionlistener;
 
 import crawler.Crawler;
 import crawler.DaumBlogCrawler;
 import crawler.DaumNewsCrawler;
 import crawler.NaverBlogCrawler;
 import crawler.NaverNewsCrawler;
+import gui.Gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,7 +16,7 @@ public class SearchListener implements ActionListener {
 
     private final Gui gui;
 
-    SearchListener(Gui gui) {
+    public SearchListener(Gui gui) {
         this.gui = gui;
     }
 
