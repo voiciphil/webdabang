@@ -1,15 +1,8 @@
 package crawler;
 
-import static util.Util.sleep;
-
-import java.io.IOException;
-import java.util.Vector;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-public class NaverNewsCrawler implements Crawler {
+public class NaverNewsCrawler extends Crawler {
 
     private static NaverNewsCrawler instance;
 
@@ -40,20 +33,32 @@ public class NaverNewsCrawler implements Crawler {
     }
 
     @Override
-    public Vector<Website> run() {
-        Vector<Website> result = new Vector<>();
-        try {
-            for (int page = 1; page <= PAGES * ELEMENTS_PER_PAGE; page += ELEMENTS_PER_PAGE) {
-                sleep(500);
-                Document document = Jsoup.connect(URL1 + searchKeyword + URL2 + page).get();
-                Elements elements = document.select(SELECTOR);
-                for (Element element : elements) {
-                    result.add(Website.of(element.attr("title"), element.attr("href")));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+    int getMaxPage() {
+        return PAGES * ELEMENTS_PER_PAGE;
+    }
+
+    @Override
+    int getPageUnit() {
+        return ELEMENTS_PER_PAGE;
+    }
+
+    @Override
+    String getUrl(int page) {
+        return URL1 + searchKeyword + URL2 + page;
+    }
+
+    @Override
+    String getSelector() {
+        return SELECTOR;
+    }
+
+    @Override
+    String getDocumentTitle(Element element) {
+        return element.attr("title");
+    }
+
+    @Override
+    String getDocumentUrl(Element element) {
+        return element.attr("href");
     }
 }

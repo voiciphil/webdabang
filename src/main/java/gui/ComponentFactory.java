@@ -69,5 +69,4 @@ public class ComponentFactory {
         frame.setResizable(false);
         return frame;
     }
-
 }

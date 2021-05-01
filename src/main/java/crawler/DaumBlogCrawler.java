@@ -1,15 +1,8 @@
 package crawler;
 
-import static util.Util.sleep;
-
-import java.io.IOException;
-import java.util.Vector;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-public class DaumBlogCrawler implements Crawler {
+public class DaumBlogCrawler extends Crawler {
 
     private static DaumBlogCrawler instance;
 
@@ -40,20 +33,32 @@ public class DaumBlogCrawler implements Crawler {
     }
 
     @Override
-    public Vector<Website> run() {
-        Vector<Website> result = new Vector<>();
-        try {
-            for (int page = 1; page <= PAGES; page++) {
-                sleep(500);
-                Document document = Jsoup.connect(URL1 + searchKeyword + URL2 + page + URL3).get();
-                Elements elements = document.select(SELECTOR);
-                for (Element element : elements) {
-                    result.add(Website.of(element.text(), element.attr("href")));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+    int getMaxPage() {
+        return PAGES;
+    }
+
+    @Override
+    int getPageUnit() {
+        return 1;
+    }
+
+    @Override
+    String getUrl(int page) {
+        return URL1 + searchKeyword + URL2 + page + URL3;
+    }
+
+    @Override
+    String getSelector() {
+        return SELECTOR;
+    }
+
+    @Override
+    String getDocumentTitle(Element element) {
+        return element.text();
+    }
+
+    @Override
+    String getDocumentUrl(Element element) {
+        return element.attr("href");
     }
 }
